@@ -1,4 +1,4 @@
-export default function ContactCard() {
+export default function ContactCard({ contact }) {
   return (
     <div>
       <h3
@@ -6,10 +6,10 @@ export default function ContactCard() {
           textDecoration: "underline",
         }}
       >
-        Pepe Zapata
+        {contact.name}
       </h3>
-      <p>Teléfono: 555555</p>
-      <p>Email: pepe@gmail.com</p>
+      <p>Teléfono: {contact.phone}</p>
+      <p>{contact.isFavorite ? "⭐" : "☆"}</p>
     </div>
   );
 }

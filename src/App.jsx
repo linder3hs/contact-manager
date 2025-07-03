@@ -1,12 +1,19 @@
+// paso1: importar el hook de React (useState)
+import { useState } from "react";
 import ContactCard from "./components/ContactCard";
 import Header from "./components/Header";
 
-// const estilos = {
-//   backgroundColor: "green",
-//   fontSize: 30,
-// };
-
 export default function App() {
+  // paso2: crear el state
+  const [selectedContact, setSelectedContact] = useState({
+    id: 1,
+    name: "Juan Perez",
+    phone: "+51 989222111",
+    isFavorite: true,
+  });
+
+  const valorQueNoCambia = "Enter Tech School";
+
   return (
     <div
       style={{
@@ -14,14 +21,11 @@ export default function App() {
       }}
     >
       <Header />
-      {/* <h1 style={estilos}>Contact Manager</h1>
-      <p>Mi primera aplicación en React</p>
-      <p>{new Date().getDay()}</p> */}
+      <p>{valorQueNoCambia}</p>
+      <p>{JSON.stringify(selectedContact)}</p>
+
       <main>
-        <ContactCard />
-        <ContactCard />
-        <ContactCard />
-        <ContactCard />
+        <ContactCard contact={selectedContact} />
       </main>
       <footer>{/* Copyrigth */}</footer>
     </div>
