@@ -1,4 +1,6 @@
 export default function ContactCard({ contact }) {
+  // contact.name = "Linder";
+  // contact.email = "linder@gmail.com";
   return (
     <div>
       <h3
@@ -6,10 +8,10 @@ export default function ContactCard({ contact }) {
           textDecoration: "underline",
         }}
       >
-        {contact.name}
+        {contact?.name}
       </h3>
-      <p>Teléfono: {contact.phone}</p>
-      <p>{contact.isFavorite ? "⭐" : "☆"}</p>
+      <p>Teléfono: {contact?.phone}</p>
+      <p>{contact?.isFavorite ? "⭐" : "☆"}</p>
     </div>
   );
 }
