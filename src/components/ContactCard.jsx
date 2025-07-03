@@ -1,17 +1,30 @@
-export default function ContactCard({ contact }) {
+export default function ContactCard({ contact, toggleFavorite }) {
   // contact.name = "Linder";
   // contact.email = "linder@gmail.com";
   return (
-    <div>
+    <div
+      style={{
+        background: "#f7f7f7",
+        padding: 12,
+        marginTop: 40,
+        borderRadius: 12,
+        marginInline: 20,
+      }}
+    >
       <h3
         style={{
-          textDecoration: "underline",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
         }}
       >
         {contact?.name}
+        <span>{contact?.isFavorite ? "⭐" : "☆"}</span>
       </h3>
       <p>Teléfono: {contact?.phone}</p>
-      <p>{contact?.isFavorite ? "⭐" : "☆"}</p>
+      <button onClick={() => toggleFavorite(contact.id)}>
+        {contact.isFavorite ? "Quitar Favorito" : "Agregar Favorito"}
+      </button>
     </div>
   );
 }
