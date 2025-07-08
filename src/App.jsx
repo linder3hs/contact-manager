@@ -2,6 +2,9 @@
 import { useState } from "react";
 import ContactCard from "./components/ContactCard";
 import Header from "./components/Header";
+import { ContactList } from "./components/ContactList";
+import { Filters } from "./components/Filter";
+import { ClearContact } from "./components/ClearContact";
 
 export default function App() {
   // paso2: crear el state
@@ -37,13 +40,15 @@ export default function App() {
   }
 
   const handleSelectContact = (contact) => {
-    console.log({ contact });
     setSelectedContact(contact);
   };
 
   const handleChangeFavorite = (event) => {
-    console.log(event);
     setShowOnlyFavorites(event.target.checked);
+  };
+
+  const handleClearContact = () => {
+    setSelectedContact(null);
   };
 
   const toggleFavorite = (id) => {
@@ -77,49 +82,16 @@ export default function App() {
     >
       <Header />
       <main>
-        <section
-          style={{
-            marginTop: 40,
-            marginBottom: 40,
-          }}
-        >
-          <label htmlFor="">
-            <h3>Filtros</h3>
-            <input type="checkbox" onChange={handleChangeFavorite} />
-            Mostrar Favoritos
-          </label>
-        </section>
-        <section
-          style={{
-            display: "flex",
-            gap: 20,
-            justifyContent: "center",
-          }}
-        >
-          {contactsToShow.map((contact) => (
-            <div key={contact.id}>
-              <button
-                onClick={() => handleSelectContact(contact)}
-                style={{
-                  background: "#2f7cff",
-                  border: "none",
-                  padding: "10px 12px",
-                  color: "#fff",
-                  borderRadius: 8,
-                }}
-              >
-                Contact {contact.id} {contact.isFavorite ? "True" : "False"}
-              </button>
-            </div>
-          ))}
-        </section>
-
-        {selectedContact ? (
-          <ContactCard
-            contact={selectedContact}
-            toggleFavorite={toggleFavorite}
-          />
-        ) : null}
+        <Filters handleChangeFavorite={handleChangeFavorite} />
+        <ClearContact handleClearContact={handleClearContact} />
+        <ContactList
+          contactsToShow={contactsToShow}
+          onSelectContact={handleSelectContact}
+        />
+        <ContactCard
+          contact={selectedContact}
+          toggleFavorite={toggleFavorite}
+        />
       </main>
       <footer>{/* Copyrigth */}</footer>
     </div>
