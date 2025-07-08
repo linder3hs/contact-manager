@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import { ContactList } from "./components/ContactList";
 import { Filters } from "./components/Filter";
 import { ClearContact } from "./components/ClearContact";
+import "./index.css"
 
 export default function App() {
   // paso2: crear el state
@@ -51,6 +52,19 @@ export default function App() {
     setSelectedContact(null);
   };
 
+  const handleNextContact = (selectedContact) => {
+    const currentIndex = contactsToShow.findIndex(
+      (contact) => contact.id === selectedContact.id
+    );
+
+    if (currentIndex === contactsToShow.length - 1) {
+      setSelectedContact(contactsToShow[0]);
+      return;
+    }
+
+    setSelectedContact(contactsToShow[currentIndex + 1])
+  };
+
   const toggleFavorite = (id) => {
     const updatedContacts = contacts.map((contact) => {
       return {
@@ -80,17 +94,19 @@ export default function App() {
         fontFamily: "Verdana",
       }}
     >
-      <Header />
+      <Header contacts={contacts} />
       <main>
         <Filters handleChangeFavorite={handleChangeFavorite} />
         <ClearContact handleClearContact={handleClearContact} />
         <ContactList
           contactsToShow={contactsToShow}
           onSelectContact={handleSelectContact}
+          selectedContact={selectedContact}
         />
         <ContactCard
           contact={selectedContact}
           toggleFavorite={toggleFavorite}
+          handleNextContact={handleNextContact}
         />
       </main>
       <footer>{/* Copyrigth */}</footer>

@@ -1,4 +1,8 @@
-export function ContactList({ contactsToShow, onSelectContact }) {
+export function ContactList({
+  contactsToShow,
+  onSelectContact,
+  selectedContact,
+}) {
   return (
     <section
       style={{
@@ -12,14 +16,16 @@ export function ContactList({ contactsToShow, onSelectContact }) {
           <button
             onClick={() => onSelectContact(contact)}
             style={{
-              background: "#2f7cff",
+              background:
+                selectedContact?.id === contact.id ? "#3ada49" : "#2f7cff",
               border: "none",
               padding: "10px 12px",
               color: "#fff",
               borderRadius: 8,
+              cursor: "pointer",
             }}
           >
-            Contact {contact.id} {contact.isFavorite ? "True" : "False"}
+            Contact {contact.id}
           </button>
         </div>
       ))}
