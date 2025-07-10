@@ -13,6 +13,8 @@ export default function App() {
 
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
+  const [nameContact, setNameContact] = useState("");
+
   const [contacts, setContacts] = useState([
     {
       id: 1,
@@ -88,6 +90,29 @@ export default function App() {
     setContacts(updatedContacts);
   };
 
+  const handleChangeContact = (event) => {
+    setNameContact(event.target.value);
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Evitar que se recargue la página
+    // Aqui viene la logica para agregar un nuevo contacto
+    // contacts.push({
+    //   id: contacts.length + 1,
+    //   name: nameContact,
+    //   isFavorite: false,
+    //   phone: "+51 999999999",
+    // })
+    /* Insertar Usando el spread operator */
+    setContacts([...contacts, {
+      id: contacts.length + 1,
+      name: nameContact,
+      isFavorite: false,
+      phone: "+51 999999999",
+    }])
+    console.log(contacts);
+  }
+
   return (
     <div
       style={{
@@ -96,6 +121,16 @@ export default function App() {
     >
       <Header contacts={contacts} />
       <main>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="">Nombre</label>
+          <input
+            type="text"
+            value={nameContact}
+            onChange={handleChangeContact}
+          />
+          <p>El valor de mi variable {nameContact}</p>
+          <button type="submit">Agregar Contacto</button>
+        </form>
         <Filters handleChangeFavorite={handleChangeFavorite} />
         <ClearContact handleClearContact={handleClearContact} />
         <ContactList
