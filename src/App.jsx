@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import { ContactList } from "./components/ContactList";
 import { Filters } from "./components/Filter";
 import { ClearContact } from "./components/ClearContact";
+import ContatcForm from "./components/ContactForm";
 import "./index.css"
 
 export default function App() {
@@ -12,8 +13,6 @@ export default function App() {
   const [selectedContact, setSelectedContact] = useState(null);
 
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
-
-  const [nameContact, setNameContact] = useState("");
 
   const [contacts, setContacts] = useState([
     {
@@ -90,26 +89,9 @@ export default function App() {
     setContacts(updatedContacts);
   };
 
-  const handleChangeContact = (event) => {
-    setNameContact(event.target.value);
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Evitar que se recargue la página
-    // Aqui viene la logica para agregar un nuevo contacto
-    // contacts.push({
-    //   id: contacts.length + 1,
-    //   name: nameContact,
-    //   isFavorite: false,
-    //   phone: "+51 999999999",
-    // })
-    /* Insertar Usando el spread operator */
-    setContacts([...contacts, {
-      id: contacts.length + 1,
-      name: nameContact,
-      isFavorite: false,
-      phone: "+51 999999999",
-    }])
+  function handleAddContact(newContact){
+    const updateContact = [...contacts, newContact];
+    setContacts(updateContact);
     console.log(contacts);
   }
 
@@ -121,16 +103,7 @@ export default function App() {
     >
       <Header contacts={contacts} />
       <main>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="">Nombre</label>
-          <input
-            type="text"
-            value={nameContact}
-            onChange={handleChangeContact}
-          />
-          <p>El valor de mi variable {nameContact}</p>
-          <button type="submit">Agregar Contacto</button>
-        </form>
+        <ContatcForm handleAddContact={handleAddContact}/>
         <Filters handleChangeFavorite={handleChangeFavorite} />
         <ClearContact handleClearContact={handleClearContact} />
         <ContactList
